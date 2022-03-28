@@ -1,4 +1,4 @@
-package cfr_celebrity_face;
+package image.cfr_celebrity_face;
 
 import java.io.*;
 import java.net.HttpURLConnection;

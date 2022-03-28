@@ -1,37 +1,24 @@
-package cfr_celebrity_face;
+package image.cfr_celebrity_face;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 
-import org.springframework.stereotype.Service;
+// 네이버 얼굴인식 API 예제2(얼굴 감정 나이 성별 좌표)
+public class nonmvc_APIExamFace_face {
 
-import basic.naver.api.NaverService;
+    public static void main(String[] args) {
 
-@Service("faceservice")
-public class FaceServiceImpl_celebrity implements NaverService {
-
-	@Override
-	public String test(String image) {
-		
-		StringBuffer response = null; // if블록 지역변수 -> 메서드 전체 지역변수로 수정
-		
-		StringBuffer reqStr = new StringBuffer();
+        StringBuffer reqStr = new StringBuffer();
         String clientId = "dkzjowr572";//애플리케이션 클라이언트 아이디값";
         String clientSecret = "VpocjvwmKWrmB8AXtRlh4eX2QzPWDmFaIuNCABra";//애플리케이션 클라이언트 시크릿값";
 
         try {
             String paramName = "image"; // 파라미터명은 image로 지정
-            String imgFile = "/Users/jungmin/Desktop/kdt-venture/workspace/AI/naverai_springboot/ai_images/" + image; //네이버사진크기 -2mb미만으로 제한
+            String imgFile = "/Users/jungmin/Desktop/kdt-venture/workspace/AI/naverai_springboot/ai_images/yun3.jpg";
             File uploadFile = new File(imgFile);
-            String apiURL = "https://naveropenapi.apigw.ntruss.com/vision/v1/celebrity"; // 유명인 얼굴 인식
+            String apiURL = "https://naveropenapi.apigw.ntruss.com/vision/v1/face"; // 얼굴 감지
             URL url = new URL(apiURL);
             HttpURLConnection con = (HttpURLConnection)url.openConnection();
             con.setUseCaches(false);
@@ -73,7 +60,7 @@ public class FaceServiceImpl_celebrity implements NaverService {
             }
             String inputLine;
             if(br != null) {
-                response = new StringBuffer();
+                StringBuffer response = new StringBuffer();
                 while ((inputLine = br.readLine()) != null) {
                     response.append(inputLine);
                 }
@@ -85,7 +72,5 @@ public class FaceServiceImpl_celebrity implements NaverService {
         } catch (Exception e) {
             System.out.println(e);
         }
-        return response.toString(); // 컨트롤러로 리턴
-	}
-
+    }
 }
