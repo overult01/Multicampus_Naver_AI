@@ -4,8 +4,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
-import cfr_celebrity_face.FaceController;
-import objectdection.ObjectDectionController;
+import image.cfr_celebrity_face.FaceController;
+import image.objectdetection.ObjectDectionController;
+import image.pose.PoseController;
+import sound.stt_csr.CSRController;
+import voice.tts.TTSController;
+import voice.tts.test.MapController;
 
 
 @SpringBootApplication
@@ -14,6 +18,10 @@ import objectdection.ObjectDectionController;
 //다른 패키지 설정 인식
 @ComponentScan(basePackageClasses = FaceController.class)
 @ComponentScan(basePackageClasses = ObjectDectionController.class)
+@ComponentScan(basePackageClasses = PoseController.class)
+@ComponentScan(basePackageClasses = CSRController.class)
+@ComponentScan(basePackageClasses = TTSController.class)
+@ComponentScan(basePackageClasses = MapController.class)
 public class NaveraiApplication {
 
 	public static void main(String[] args) {
