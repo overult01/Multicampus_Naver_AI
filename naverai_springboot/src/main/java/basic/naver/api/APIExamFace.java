@@ -17,7 +17,7 @@ public class APIExamFace {
 
         try {
             String paramName = "image"; // 파라미터명은 image로 지정
-            String imgFile = "/Users/jungmin/Desktop/kdt-venture/workspace/naverai_springboot/ai_images/song.jpg";
+            String imgFile = "/Users/jungmin/Desktop/kdt-venture/workspace/AI/naverai_springboot/ai_images/bangtan7.jpg";
             File uploadFile = new File(imgFile);
             String apiURL = "https://naveropenapi.apigw.ntruss.com/vision/v1/celebrity"; // 유명인 얼굴 인식
             URL url = new URL(apiURL);

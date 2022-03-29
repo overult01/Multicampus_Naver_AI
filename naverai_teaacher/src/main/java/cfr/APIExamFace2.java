@@ -5,21 +5,20 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 
-// 네이버 얼굴인식 API 예제(유명인 닮은 정도)
-
-public class APIExamFace {
+// 네이버 얼굴인식 API 예제(유명인 닮은 정도 / 얼굴 감정 나이 성별 좌표)
+public class APIExamFace2 {
 
     public static void main(String[] args) {
 
         StringBuffer reqStr = new StringBuffer();
-        String clientId = "dkzjowr572";//애플리케이션 클라이언트 아이디값";
-        String clientSecret = "VpocjvwmKWrmB8AXtRlh4eX2QzPWDmFaIuNCABra";//애플리케이션 클라이언트 시크릿값";
+        String clientId = "tf9vrk4ekg";//애플리케이션 클라이언트 아이디값";
+        String clientSecret = "lQSJjr9OHAIiKhXTtMjY3Vbcib4E2lmyonXWG4oz";//애플리케이션 클라이언트 시크릿값";
 
         try {
             String paramName = "image"; // 파라미터명은 image로 지정
-            String imgFile = "/Users/jungmin/Desktop/kdt-venture/workspace/AI/naverai_springboot/ai_images/dp1.jpg";
+            String imgFile = "C:/Users/student/Desktop/ai_images/dp1.jpg";
             File uploadFile = new File(imgFile);
-            String apiURL = "https://naveropenapi.apigw.ntruss.com/vision/v1/celebrity"; // 유명인 얼굴 인식
+            String apiURL = "https://naveropenapi.apigw.ntruss.com/vision/v1/face"; // 얼굴 감지
             URL url = new URL(apiURL);
             HttpURLConnection con = (HttpURLConnection)url.openConnection();
             con.setUseCaches(false);

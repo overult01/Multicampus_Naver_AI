@@ -1,25 +1,37 @@
-package edu.multi.boot1;
+package cfr;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 
-// 네이버 얼굴인식 API 예제
+import org.springframework.stereotype.Service;
 
-public class APIExamFace {
+import edu.multi.boot1.NaverService;
 
-    public static void main(String[] args) {
+@Service("faceservice2")
+public class FaceServiceImpl2 implements NaverService {
 
+	@Override
+	public String test(String image) {
+//apieXAMFace2.java main 붙여넣기-수정
+
+		StringBuffer response = null;
         StringBuffer reqStr = new StringBuffer();
-        String clientId = "dkzjowr572";//애플리케이션 클라이언트 아이디값";
-        String clientSecret = "VpocjvwmKWrmB8AXtRlh4eX2QzPWDmFaIuNCABra";//애플리케이션 클라이언트 시크릿값";
+        String clientId = "tf9vrk4ekg";//애플리케이션 클라이언트 아이디값";
+        String clientSecret = "lQSJjr9OHAIiKhXTtMjY3Vbcib4E2lmyonXWG4oz";//애플리케이션 클라이언트 시크릿값";
 
         try {
             String paramName = "image"; // 파라미터명은 image로 지정
-            String imgFile = "/Users/jungmin/Desktop/kdt-venture/workspace/naverai_springboot/ai_images/yuna4.jpeg";
+            String imgFile = "C:/Users/student/Desktop/ai_images/" + image;
             File uploadFile = new File(imgFile);
-            String apiURL = "https://naveropenapi.apigw.ntruss.com/vision/v1/celebrity"; // 유명인 얼굴 인식
+            String apiURL = "https://naveropenapi.apigw.ntruss.com/vision/v1/face"; // 얼굴 감지
             URL url = new URL(apiURL);
             HttpURLConnection con = (HttpURLConnection)url.openConnection();
             con.setUseCaches(false);
@@ -61,7 +73,7 @@ public class APIExamFace {
             }
             String inputLine;
             if(br != null) {
-                StringBuffer response = new StringBuffer();
+                response = new StringBuffer();
                 while ((inputLine = br.readLine()) != null) {
                     response.append(inputLine);
                 }
@@ -71,7 +83,9 @@ public class APIExamFace {
                 System.out.println("error !!!");
             }
         } catch (Exception e) {
-        	e.printStackTrace();
+            System.out.println(e);
         }
-    }
-}
+		return response.toString();
+	}//test end
+
+}//class end

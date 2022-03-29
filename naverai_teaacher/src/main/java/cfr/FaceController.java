@@ -12,72 +12,53 @@ import edu.multi.boot1.NaverService;
 
 @Controller
 public class FaceController {
-	
 	@Autowired
 	@Qualifier("faceservice")
 	NaverService faceservice;
 	
-	
-	@Autowired	  
-	@Qualifier("faceservice2") 
+	@Autowired
+	@Qualifier("faceservice2")	
 	NaverService faceservice2;
-	 
 	
 	//이미지파일 리스트 보여주는 페이지 뷰
 	@RequestMapping("/faceinput")
 	public ModelAndView faceinput() {
-		File f = new File("/Users/jungmin/Desktop/kdt-venture/workspace/AI/naverai_springboot/ai_images");
+		//C:\Users\student\Desktop\ai_images 폴더 파일리스트
+		File f = new File("C:\\Users\\student\\Desktop\\ai_images");
 		String [] filelist = f.list();
-		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("filelist", filelist);
 		mv.setViewName("faceinput");
-		
 		return mv;
+		
 	}
-	
+	//1개 이미지 선택 - 네이버 AI 서버 요청 - 응답 뷰
 	@RequestMapping("/faceresult")
 	public ModelAndView faceresult(String image) {
-		//컨트롤러(요쳥-어떤서비스에 일 결과-어떤 뷰) - 서비스 - 뷰 역할
-		String json = faceservice.test(image);
-		
+		// 컨트롤러(요청분석 - 어떤 서비스 일 결과 - 어떤 뷰 ) - 서비스 - 뷰 역할
+		String json = faceservice.test(image);// 유명인 분석
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("faceresult", json);
 		mv.setViewName("faceresult");
 		return mv;
-		
 	}
 	
-	// 얼굴 감지 API
+	//이미지파일 리스트 보여주는 페이지 뷰
 	@RequestMapping("/faceinput2")
 	public ModelAndView faceinput2() {
-		
-		File f = new File("/Users/jungmin/Desktop/kdt-venture/workspace/AI/naverai_springboot/ai_images");
+		//C:\Users\student\Desktop\ai_images 폴더 파일리스트
+		File f = new File("C:\\Users\\student\\Desktop\\ai_images");
 		String [] filelist = f.list();
-		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("filelist", filelist);
 		mv.setViewName("faceinput2");
-		
-		return mv;
-	}
-	
-	@RequestMapping("/faceresult2")
-	public ModelAndView faceresult2(String image) {
-		//컨트롤러(요쳥-어떤서비스에 일 결과-어떤 뷰) - 서비스 - 뷰 역할
-		String json = faceservice2.test(image);
-		
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("faceresult2", json);
-		mv.setViewName("faceresult2");
 		return mv;
 		
 	}
-
 	
 	//1개 이미지 선택 - 네이버 AI 서버 요청 - 응답 뷰
-	@RequestMapping("/faceresult3")
-	public ModelAndView faceresult3(String image) {//뷰 ${param.image}  /naverimages/a.jpg
+	@RequestMapping("/faceresult2")
+	public ModelAndView faceresult2(String image) {//뷰 ${param.image}  /naverimages/a.jpg
 		// 컨트롤러(요청분석 - 어떤 서비스 일 결과 - 어떤 뷰 ) - 서비스 - 뷰 역할
 		String json = faceservice2.test(image);// 얼굴 분석 서비스 요청
 		ModelAndView mv = new ModelAndView();
@@ -86,6 +67,12 @@ public class FaceController {
 		mv.setViewName("faceresult3");//캔버스추가
 		return mv;
 	}
-	
-
 }
+
+
+
+
+
+
+
+

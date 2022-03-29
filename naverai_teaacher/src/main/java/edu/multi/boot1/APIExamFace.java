@@ -1,38 +1,30 @@
-package cfr;
+package edu.multi.boot1;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 
-import org.springframework.stereotype.Service;
+// 네이버 얼굴인식 API 예제
+// main-java application 
+//main + @SpringBootA... - spring boot app
+//controller - run on server - 브라우저 url 입력
 
-import edu.multi.boot1.NaverService;
+public class APIExamFace {
+//java application main 선언부 규칙
+	//FaceService - 이미지파일명 매개변수/String 리턴타입
+    public static void main(String[] args) {
 
-@Service("faceservice2")
-public class FaceServiceImpl2 implements NaverService {
-
-	@Override
-	public String test(String image) {
-		
-		StringBuffer response = null;
-		
-		StringBuffer reqStr = new StringBuffer();
-        String clientId = "dkzjowr572";//애플리케이션 클라이언트 아이디값";
-        String clientSecret = "VpocjvwmKWrmB8AXtRlh4eX2QzPWDmFaIuNCABra";//애플리케이션 클라이언트 시크릿값";
-
+        StringBuffer reqStr = new StringBuffer();
+        String clientId = "qm0tu55p7u";//애플리케이션 클라이언트 아이디값";
+        String clientSecret = "9OwFiRPEE00KkdxG0C4vTRME5BOWlKuOTwVpLznM";//애플리케이션 클라이언트 시크릿값";
 
         try {
             String paramName = "image"; // 파라미터명은 image로 지정
-            String imgFile = "/Users/jungmin/Desktop/kdt-venture/workspace/AI/naverai_springboot/ai_images/" + image;
+            //1명 사진 , 2명 사진, 동물 사진, 사물 사진
+            String imgFile = "C:/Users/student/Desktop/ai_images/kimbab.jpg";//2mb초과(네이버사진크기-2mb미만제한)
             File uploadFile = new File(imgFile);
-            String apiURL = "https://naveropenapi.apigw.ntruss.com/vision/v1/face"; // 얼굴 감지
+            String apiURL = "https://naveropenapi.apigw.ntruss.com/vision/v1/celebrity"; // 유명인 얼굴 인식
             URL url = new URL(apiURL);
             HttpURLConnection con = (HttpURLConnection)url.openConnection();
             con.setUseCaches(false);
@@ -74,7 +66,7 @@ public class FaceServiceImpl2 implements NaverService {
             }
             String inputLine;
             if(br != null) {
-                response = new StringBuffer();
+                StringBuffer response = new StringBuffer();
                 while ((inputLine = br.readLine()) != null) {
                     response.append(inputLine);
                 }
@@ -86,7 +78,5 @@ public class FaceServiceImpl2 implements NaverService {
         } catch (Exception e) {
             System.out.println(e);
         }
-        return response.toString();
-	}
-
+    }
 }
