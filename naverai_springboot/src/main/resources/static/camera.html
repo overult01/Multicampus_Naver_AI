@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>실시간으로 카메라 촬영후 전송(자바스크립트 필요)</title>
+</head>
+<body>
+
+<canvas id = "camera-output"></canvas> <!-- 촬영된 영상 -->
+<video id = "camera-view" autoplay playsinline></video> <!-- 카메라 이동 영상 -->
+<button id = "camera-btn">사진 촬영</button> <!-- 사진 촬영 버튼 누르면 캔버스에 그려진다 -->
+<a id = "camera-save">파일 형태로 저장하는 링크</a>
+
+<script>
+var cameraOutput = document.getElementById("camera-output");
+var cameraView = document.getElementById("camera-view");
+var cameraBtn = document.getElementById("camera-btn");
+var cameraSave = document.getElementById("camera-save");
+
+var contraints = {video : {faceingMode : "user"}, audio : false};
+
+// 카메라 내용을 video에 출력
+navigator.mediaDevices.getUserMedia(contraints) // 카메라 사용 
+.then(function(stream){cameraView.srcObject = stream; }) // 매개변수: 카메라에서 받아온 내용
+.catch(function(err){console.log("카메라 문제 감지 ", err);}) // 예외발생시. 매개변수는 에러.
+
+// 카메라 찍어라. 캔버스에 촬영 이미지가 출력(정지된)
+cameraBtn.onclick = function(){
+	cameraOutput.width = cameraView.videoWidth; // 캔버스의 가로크기를 비디오 영상의 가로크기만큼
+	cameraOutput.height = cameraView.videoHeight; // 캔버스의 세로크기를 비디오 영상의 세로크기만큼
+	var context = cameraOutput.getContext("2d");
+	context.drawImage(cameraView, 0, 0); // 캔버스에 이미지 보이기. 가로세로는 위에서 지정완료.
+	
+	//파일 저장
+	cameraOutput.toBlob(function(blob){ // 우리가 찍은 이미지를 2진수의 바이트로 바꿔서 저장하겠다 
+		var imageURL = URL.createObjectURL(blob);
+		cameraSave.href = imageURL;
+		cameraSave.innerHTML = "png파일로 저장";
+		cameraSave.download = "my.png";
+	}); // toBlob: 대용량 이미지, 음성파일 저장할 때 사용. 바이트가 많을 때.
+	
+	// 저장한 파일을 서버 폴더에 업로드하기
+	
+}// cameraBtn.onclick 이벤트 
+</script>
+
+</body>
+</html>

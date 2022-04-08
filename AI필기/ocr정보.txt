@@ -1,0 +1,5 @@
+secret key
+ZVpNbXFhd1lnT1pwc2hJQXlpb0hvUm16U1pReUJZQ3c=
+
+api invoke url
+https://f22d6760e6234bf980f6316e2f6e1adb.apigw.ntruss.com/custom/v1/14928/42b17dbc4a6962db1dc8479551317ca9e895d98698f5cd643825f5677f4fc623/general

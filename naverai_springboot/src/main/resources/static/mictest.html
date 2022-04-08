@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<!-- jsp 파일로 변환해야 한다.  -->
+
+<!-- 녹음버튼  -->
+
+<!-- 정지버튼  -->
+
+<button id = "record">녹음</button>
+<button id = "stop">정지</button>
+<div id = "sound">audio 태그 생성 + a태그(저장용) 생성</div>
+
+<script>
+	var record = document.getElementById("record");
+	var stop = document.getElementById("stop");
+	var sound = document.getElementById("sound"); // 오디오태그 출력예정(녹음한 부분 확인)
+
+	if(navigator.mediaDevices){ // 녹음기, 카메라 지원하는 브라우저인지 확인 
+		console.log("지원가능");
+		var constraints = {audio : true}; // 녹음기 사용		
+	}
+	
+	var chunks = []; // 녹음 내용 임시 저장 예정
+	navigator.mediaDevices.getUserMedia(constraints)
+	.then(function(stream){
+		var mediaRecorder = new MediaRecorder(stream); // stream에 녹음되는 내용 저장 
+		record.onclick = function(){
+			mediaRecorder.start(); // 녹음 시작
+			record.style.color = "blue";
+			record.style.background = "red"; // 녹음시에는 버튼 파란 글씨, 빨간 배경
+		}
+		stop.onclick = function() {
+			mediaRecorder.stop(); // 녹음 종료
+			record.style.color = ""; // 색 해제 
+			record.style.background = ""; 
+		}
+		
+	
+	// 녹음 시작 상태이면 chunks에 녹음 데이터를 저장
+	mediaRecorder.ondataavailable = function(e){
+		chunks.push(e.data); // e.data: 녹음이 되어지고 있는 데이터 
+	}
+	
+	// 녹음 정지상태이면 실행
+	mediaRecorder.onstop = function(e){
+	
+		// audio 태그 추가
+		// <audio controls = "controls"></audio>
+		var audio = document.createElement('audio');		
+		audio.setAttribute("controls", '');
+		audio.controls = true;
+		// div태그 안에 audio태그 넣기
+		sound.appendChild(audio);
+		
+		// chuncks에 있는 녹음 데이터 -> mp3형태, 오디오 태그 재생 세팅 
+		var blob = new Blob(chunks, {"type" : 'audio/mp3'}); // 멀티미디어 데이터는 Blob형태
+		var mp3url = URL.createObjectURL(blob);
+		audio.src = mp3url;
+		
+		// 다음 녹음 위해 chuncks 초기화
+		chunks = [];
+		
+		// a 태그 생성 (저장용)
+		var a = document.createElement("a");
+		sound.appendChild(a);
+		a.href = mp3url;
+		a.innerHTML = "파일 저장"; // a태그 안의 문자열
+		a.download = "mictest.mp3" ; // 저장할 파일이름(경로는 지정불가) -> 이후 jsp파일로 변환할 때 스프링부트 서버의 경로로 upload해주는 것까지 추가 필요
+		
+	}// onstop end
+}) // then end
+.catch(function(err){ // 에러발생시
+	console.log("오류발생 : " + err);
+}) // catch end 
+	
+</script>
+
+<!-- blob형태 녹음 내용 저장 -- 파일명 저장 *.mp3 -->
+
+</body>
+</html>

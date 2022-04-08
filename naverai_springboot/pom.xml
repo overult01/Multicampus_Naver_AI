@@ -51,8 +51,9 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<optional>true</optional>
-		</dependency>		
-		<!-- for json parsing -->
+		</dependency>
+			
+		<!-- for json parsing : JSONObject, JSONArray-->
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>

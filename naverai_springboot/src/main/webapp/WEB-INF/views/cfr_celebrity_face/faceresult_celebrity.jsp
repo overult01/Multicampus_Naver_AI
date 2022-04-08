@@ -65,5 +65,8 @@ for(int i = 0; i < faces.length(); i++){
 %>
 
 <h3><%=facecount %> 명의 얼굴을 찾았습니다.</h3>
+
+<a href = "/">처음 화면으로 이동</a>
+
 </body>
 </html>

@@ -4,9 +4,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
+import chatbot.ChatbotController;
 import image.cfr_celebrity_face.FaceController;
 import image.objectdetection.ObjectDectionController;
 import image.pose.PoseController;
+import ocr.OCRController;
 import sound.stt_csr.CSRController;
 import voice.tts.TTSController;
 import voice.tts.test.MapController;
@@ -22,6 +24,8 @@ import voice.tts.test.MapController;
 @ComponentScan(basePackageClasses = CSRController.class)
 @ComponentScan(basePackageClasses = TTSController.class)
 @ComponentScan(basePackageClasses = MapController.class)
+@ComponentScan(basePackageClasses = OCRController.class)
+@ComponentScan(basePackageClasses = ChatbotController.class)
 public class NaveraiApplication {
 
 	public static void main(String[] args) {
